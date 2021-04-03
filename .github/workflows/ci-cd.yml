@@ -1,0 +1,37 @@
+name: CI CD
+on:  
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  release:
+    types: [created]
+jobs:
+  github-package-deploy:
+    name: GitHub package deploy
+    if: ${{ github.event_name == 'pull request' }}
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      run: docker build -t docker.pkg.github.com/arnab-developer/httpddemo/httpddemo:1.0.0 .
+    - name: Push docker image
+      run: |
+        echo "${{ secrets.GITHUB_TOKEN }}" | docker login https://docker.pkg.github.com -u Arnab-Developer --password-stdin
+        docker push docker.pkg.github.com/arnab-developer/httpddemo/httpddemo:1.0.0
+  dockerhub-deploy:
+    name: Dockerhub deploy
+    if: ${{ github.event_name == 'pull request' }}    
+    runs-on: ubuntu-latest
+    environment:
+      name: Dockerhub
+      url: https://hub.docker.com/r/45862391/httpddemo
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Create docker image
+      run: docker build -t 45862391/httpddemo:1.0.0 .
+    - name: Push docker image
+      run: |
+        echo "${{ secrets.DOCKERHUB_PWD }}" | docker login -u 45862391 --password-stdin
+        docker push 45862391/httpddemo:1.0.0
