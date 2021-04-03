@@ -1,0 +1,1 @@
+A demo to show the usage of httpd server in a docker container for static website.
