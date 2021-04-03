@@ -9,7 +9,7 @@ on:
 jobs:
   github-package-deploy:
     name: GitHub package deploy
-    if: ${{ github.event_name == 'pull request' }}
+    if: ${{ github.event_name == 'pull_request' }}
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
@@ -22,7 +22,7 @@ jobs:
         docker push docker.pkg.github.com/arnab-developer/httpddemo/httpddemo:1.0.0
   dockerhub-deploy:
     name: Dockerhub deploy
-    if: ${{ github.event_name == 'pull request' }}    
+    if: ${{ github.event_name == 'pull_request' }}    
     runs-on: ubuntu-latest
     environment:
       name: Dockerhub
