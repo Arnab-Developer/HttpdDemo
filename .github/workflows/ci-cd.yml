@@ -24,6 +24,7 @@ jobs:
     name: Dockerhub deploy
     if: ${{ github.event_name == 'pull_request' }}    
     runs-on: ubuntu-latest
+    needs: github-package-deploy
     environment:
       name: Dockerhub
       url: https://hub.docker.com/r/45862391/httpddemo
