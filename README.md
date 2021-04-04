@@ -1,4 +1,4 @@
-# Apache httpd server demo
+# Apache httpd server in docker container
 
 A demo app to show the usage of [Apache httpd](https://httpd.apache.org/) server in a docker container. This is a 
 website with some html and jQuery in it and stored in [docker hub](https://hub.docker.com/r/45862391/httpddemo) 
