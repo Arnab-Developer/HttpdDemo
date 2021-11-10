@@ -18,7 +18,7 @@ jobs:
       run: |
         echo "${{ secrets.GITHUB_TOKEN }}" | docker login https://docker.pkg.github.com -u Arnab-Developer --password-stdin
         docker push docker.pkg.github.com/arnab-developer/httpddemo/httpddemo:1.0.0
-        docker logout
+        docker logout https://docker.pkg.github.com
   dockerhub-deploy:
     name: Dockerhub deploy
     if: ${{ github.event_name == 'release' }}    
